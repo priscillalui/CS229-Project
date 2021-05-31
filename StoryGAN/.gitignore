@@ -1,0 +1,13 @@
+**.vscode
+**.DS_Store
+**__pycache__**
+**__MACOSX**
+
+code/output**/**
+code/runs**
+code/sandbox.py
+code/model_original.py
+code/cfg/clevr_cpu.yml
+code/cfg/vist_continuous.yml
+
+output/

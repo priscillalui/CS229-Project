@@ -1,0 +1,22 @@
+CONFIG_NAME: 'StoryGAN'
+DATASET_NAME: 'vist'
+GPU_ID: '0'
+Z_DIM: 10
+IMSIZE: 64
+WORKERS: 8
+VIDEO_LEN: 5
+VIS_COUNT: 10
+LABEL_NUM: 50
+
+TRAIN:
+    ST_BATCH_SIZE: 24
+
+GAN:
+    CONDITION_DIM: 512
+    DF_DIM: 96
+    GF_DIM: 192
+
+TEXT:
+    DIMENSION: 512
+
+NET_G: '/home/ubuntu/StoryGAN/code/output/vist_StoryGAN/Model/netG_epoch_6.pth'

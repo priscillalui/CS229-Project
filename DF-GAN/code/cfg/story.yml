@@ -1,0 +1,27 @@
+CONFIG_NAME: 'story'
+
+DATASET_NAME: 'story'
+DATA_DIR: '/home/Priscilla/VIST'
+GPU_ID: 0
+WORKERS: 1
+
+
+B_VALIDATION: False # True  # False
+loss: 'hinge'
+
+TREE:
+    BRANCH_NUM: 1
+    BASE_SIZE: 256
+
+
+TRAIN:
+    NF: 32 # default 64
+    BATCH_SIZE: 24
+    MAX_EPOCH: 601
+    NET_G: '../test'
+
+
+TEXT:
+    EMBEDDING_DIM: 256
+    CAPTIONS_PER_IMAGE: 1
+    DAMSM_NAME: '../DAMSMencoders/coco/inception/text_encoder200.pth'
