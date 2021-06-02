@@ -32,7 +32,7 @@ class StoryDataset(torch.utils.data.Dataset):
     Loads a batch of images and encoded sentences of a story and concatenate them.
 
     Note:
-        This class takes `desc_dir` as a parameter to align with original dataset modules
+        This class takes `desc_path` as a parameter to align with original dataset modules
         created by the StoryGAN author.
 
     Attributes:
@@ -46,11 +46,11 @@ class StoryDataset(torch.utils.data.Dataset):
         video_len (int): Number of frames in a story
     """
 
-    def __init__(self, img_dir, desc_dir, transform, video_len=4, is_train=True):
+    def __init__(self, img_dir, desc_path, transform, video_len=4, is_train=True):
         self.img_dir = img_dir
-        self.encodings = torch.load(os.path.join(desc_dir, ENCODINGS_FILE))
-        self.stories = pickle.load(open(os.path.join(desc_dir, PICKLE_FILE), "rb"))
-        # self.labels = np.load(os.path.join(desc_dir, LABEL_FILE))
+        self.encodings = torch.load(os.path.join(desc_path, ENCODINGS_FILE))
+        self.stories = pickle.load(open(os.path.join(desc_path, PICKLE_FILE), "rb"))
+        # self.labels = np.load(os.path.join(desc_path, LABEL_FILE))
         self.transforms = transform
         self.video_len = video_len
 
@@ -70,7 +70,6 @@ class StoryDataset(torch.utils.data.Dataset):
             im.close()            
 
             # descriptions
-            print(len(self.encodings), enc_idx)
             desc = self.encodings[enc_idx]
             des.append(desc.unsqueeze(0))
 
@@ -81,13 +80,13 @@ class StoryDataset(torch.utils.data.Dataset):
         # After transform, image is C x T x H x W    
         image_numpy = image
         image = self.transforms(image_numpy)
-        des = np.concatenate(des, axis = 0) 
-        des = torch.tensor(des)
+        des_all = torch.cat(des, axis = 0) 
+        # des = torch.tensor(des)
         # label = np.array(labels)
 
         super_label = np.array([0, 0]) # TODO
 
-        return {'images': image, 'description': des, 'label': super_label}
+        return {'images': image, 'description': des_all, 'label': super_label}
 
     def __len__(self):
         return len(self.stories)
@@ -99,7 +98,7 @@ class ImageDataset(torch.utils.data.Dataset):
     Loads a single image-sentence pair in a story.
 
     Note:
-        This class takes `desc_dir` as a parameter to align with original dataset modules
+        This class takes `desc_path` as a parameter to align with original dataset modules
         created by the StoryGAN author.
 
     Attributes:
@@ -113,11 +112,11 @@ class ImageDataset(torch.utils.data.Dataset):
         video_len (int): Number of frames in a story
     """
 
-    def __init__(self, img_dir, desc_dir, transform, video_len=5, is_train=True):
+    def __init__(self, img_dir, desc_path, transform, video_len=5, is_train=True):
         self.img_dir = img_dir
-        self.encodings = torch.load(os.path.join(desc_dir, ENCODINGS_FILE))
-        self.stories = pickle.load(open(os.path.join(desc_dir, PICKLE_FILE), "rb"))
-        # self.labels = np.load(os.path.join(desc_dir, LABEL_FILE))        
+        self.encodings = torch.load(os.path.join(desc_path, ENCODINGS_FILE))
+        self.stories = pickle.load(open(os.path.join(desc_path, PICKLE_FILE), "rb"))
+        # self.labels = np.load(os.path.join(desc_path, LABEL_FILE))        
         self.transforms = transform
         self.video_len = video_len
 
@@ -150,8 +149,8 @@ class ImageDataset(torch.utils.data.Dataset):
             image_id, enc_idx = story[i]
             desc = self.encodings[enc_idx]          
             content.append(desc.unsqueeze(0))
-        content = np.concatenate(content, 0)      
-        content = torch.tensor(content)         
+        content_all = torch.cat(content, 0)      
+        # content = torch.tensor(content)         
 
         #content = torch.zeros_like(content) # TODO: Nullify story context        
 
@@ -159,7 +158,7 @@ class ImageDataset(torch.utils.data.Dataset):
         #label = self.labels[enc_idx]
 
         super_label = np.array([0, 0]) # TODO
-        return {'images': image, 'description': des, 'label': super_label, 'content': content}
+        return {'images': image, 'description': des, 'label': super_label, 'content': content_all}
 
     def __len__(self):
         return len(self.stories)

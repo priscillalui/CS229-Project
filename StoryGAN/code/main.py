@@ -35,7 +35,7 @@ def parse_args():
     parser.add_argument('--gpu',  dest='gpu_id', type=str, default='0')
     parser.add_argument('--manualSeed', type=int, help='manual seed')
     parser.add_argument('--img_dir', dest='img_dir', type=str, default='')
-    parser.add_argument('--desc_dir', dest='desc_dir', type=str, default='')
+    parser.add_argument('--desc_path', dest='desc_path', type=str, default='')
     parser.add_argument('--output_dir', dest='output_dir', type=str, default='./output')
 
     args = parser.parse_args()
@@ -80,17 +80,17 @@ if __name__ == "__main__":
 
     # Dataloader classes
     storydataset = data.StoryDataset(args.img_dir,
-                                    args.desc_dir,
+                                    args.desc_path,
                                     video_transforms,
                                     cfg.VIDEO_LEN,
                                     True)
     imagedataset = data.ImageDataset(args.img_dir,
-                                    args.desc_dir,
+                                    args.desc_path,
                                     image_transforms,
                                     cfg.VIDEO_LEN,
                                     True)
     testdataset = data.StoryDataset(args.img_dir,
-                                    args.desc_dir,
+                                    args.desc_path,
                                     video_transforms,
                                     cfg.VIDEO_LEN,
                                     False)

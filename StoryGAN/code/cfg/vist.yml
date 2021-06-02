@@ -1,9 +1,9 @@
-CONFIG_NAME: 'StoryGAN'
+CONFIG_NAME: 'dii_StoryGAN'
 DATASET_NAME: 'vist'
 GPU_ID: '0'
 Z_DIM: 10
 IMSIZE: 64
-WORKERS: 4
+WORKERS: 0
 STAGE: 1
 VIDEO_LEN: 5
 VIS_COUNT: 10
@@ -27,3 +27,9 @@ GAN:
 
 TEXT:
     DIMENSION: 512
+
+
+# Start training from last epoch
+NET_G: '/home/Priscilla/StoryGAN/code/output/vist_dii_StoryGAN/Model/netG_epoch_17.pth'
+NET_D_IM: '/home/Priscilla/StoryGAN/code/output/vist_dii_StoryGAN/Model/netD_im_epoch_17.pth'
+NET_D_ST: '/home/Priscilla/StoryGAN/code/output/vist_dii_StoryGAN/Model/netD_st_epoch_last_17.pth'

@@ -22,8 +22,8 @@ import pickle
 import torch
 
 IMG_DIR = '/home/Priscilla/VIST/Train/images/train'
-JSON_FILE = '/home/Priscilla/VIST/dii/train.description-in-isolation.json'
-PICKLE_FILE = '/home/Priscilla/VIST/Train/dii_train_annotations_clean.pickle' # where to save the final list of story annotations
+JSON_FILE = '/home/Priscilla/VIST/dii/test.description-in-isolation.json'
+PICKLE_FILE = '/home/Priscilla/VIST/Test/dii_test_annotations.pickle' # where to save the final list of story annotations
 
 num_missing_images = 0
 num_omitted_stories = 0
@@ -36,7 +36,7 @@ with open(JSON_FILE) as f:
 annotations = data['annotations']
 stories = []
 story = []
-prev_photo_index = -1
+prev_photo_index = 0
 is_story_intact = True # whether all scene image files for this story exist
 
 for index,annot in enumerate(annotations):
@@ -49,7 +49,7 @@ for index,annot in enumerate(annotations):
   # Check if this is a new story
   if prev_photo_index != 0 and photo_index == 0:
     if is_story_intact:
-      print("Adding story, contains %d scenes" % len(story))
+      # print("Adding story, contains %d scenes" % len(story))
       stories.append(story.copy())
     else:
       print("Omitting story because missing a scene")
@@ -58,7 +58,7 @@ for index,annot in enumerate(annotations):
     story.clear()
 
   # Check if image exists
-  img_file = os.path.join(IMG_DIR, photo_id + '.jpg')
+  img_file = os.path.join('%s/%s.jpg' % (IMG_DIR, photo_id))
   # print("Checking if %s exists..." % img_file)
   if not os.path.exists(img_file):
     num_missing_images += 1

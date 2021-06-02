@@ -7,6 +7,7 @@ import pdb
 import numpy as np
 import torch.backends.cudnn as cudnn
 import torch
+# import torch.multiprocessing as mp
 import torch.nn as nn
 from torch.autograd import Variable
 import torch.optim as optim
@@ -26,8 +27,10 @@ from miscc.utils import KL_loss
 from miscc.utils import compute_discriminator_loss, compute_generator_loss, save_test_samples
 
 
+
 class GANTrainer(object):
     def __init__(self, output_dir, ratio = 1.0, test_dir = None):
+        # mp.set_start_method('spawn') 
         self.model_dir = os.path.join(output_dir, 'Model')
         self.image_dir = os.path.join(output_dir, 'Image')
         self.log_dir = os.path.join(output_dir, 'Log')
@@ -220,6 +223,10 @@ class GANTrainer(object):
                     #######################################################
                     # (2) Generate fake stories and images
                     ######################################################
+                    im_motion_input = im_motion_input.float()
+                    im_content_input = im_content_input.float()
+                    st_motion_input = st_motion_input.float()
+                    st_content_input = st_content_input.float()
                     _, im_fake, im_mu, im_logvar = netG.sample_images(im_motion_input, im_content_input)
                     _, st_fake, c_mu, c_logvar, m_mu, m_logvar = netG.sample_videos( st_motion_input, st_content_input)
 
