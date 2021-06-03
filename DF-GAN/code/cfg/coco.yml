@@ -6,7 +6,7 @@ GPU_ID: 0
 WORKERS: 1
 
 
-B_VALIDATION: True # True  # False
+B_VALIDATION: False # True  # False
 loss: 'hinge'
 
 TREE:
@@ -24,4 +24,4 @@ TRAIN:
 TEXT:
     EMBEDDING_DIM: 256
     CAPTIONS_PER_IMAGE: 5
-    DAMSM_NAME: '../DAMSMencoders/coco/inception/text_encoder100.pth'
+    DAMSM_NAME: '../DAMSMencoders/coco/text_encoder100.pth'
