@@ -20,4 +20,6 @@ GAN:
 TEXT:
     DIMENSION: 512
 
-NET_G: '/home/ubuntu/StoryGAN/checkpoints/bce_epoch_57/netG_epoch_57_1664.pth'
+# NET_G: '/home/Priscilla/StoryGAN/checkpoints/bce_epoch_57/netG_epoch_57_1664.pth' # Best StoryGAN with sis captions (last quarter checkpoint)
+# NET_G: '/home/Priscilla/StoryGAN/code/output/vist_StoryGAN/Model/netG_epoch_16.pth' # Best StoryGAN with sis captions (this quarter)
+NET_G: '/home/Priscilla/StoryGAN/code/output/vist_dii_StoryGAN/Model/netG_epoch_19.pth' # Best StoryGAN with dii captions (this quarter)

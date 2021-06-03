@@ -30,6 +30,9 @@ TEXT:
 
 
 # Start training from last epoch
-NET_G: '/home/Priscilla/StoryGAN/code/output/vist_dii_StoryGAN/Model/netG_epoch_17.pth'
-NET_D_IM: '/home/Priscilla/StoryGAN/code/output/vist_dii_StoryGAN/Model/netD_im_epoch_17.pth'
-NET_D_ST: '/home/Priscilla/StoryGAN/code/output/vist_dii_StoryGAN/Model/netD_st_epoch_last_17.pth'
+# NET_G: '/home/Priscilla/StoryGAN/checkpoints/bce_epoch_57/netG_epoch_57_1664.pth'
+# NET_D_IM: '/home/Priscilla/StoryGAN/checkpoints/bce_epoch_57/netD_im_epoch_57_1664.pth'
+# NET_D_ST: '/home/Priscilla/StoryGAN/checkpoints/bce_epoch_57/netD_st_epoch_last_57_1664.pth'
+NET_G: '/home/Priscilla/StoryGAN/code/output/vist_dii_StoryGAN/Model/netG_epoch_19.pth'
+NET_D_IM: '/home/Priscilla/StoryGAN/code/output/vist_dii_StoryGAN/Model/netD_im_epoch_19.pth'
+NET_D_ST: '/home/Priscilla/StoryGAN/code/output/vist_dii_StoryGAN/Model/netD_st_epoch_last_19.pth'

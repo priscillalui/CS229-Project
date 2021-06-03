@@ -9,7 +9,7 @@ from PIL import Image
 import torch
 import torchvision.transforms as transforms
 import torchvision.utils as vutils
-# import clip
+import clip
 
 from inference import setup, single_inference
 from miscc.utils import save_test_samples, images_to_numpy
@@ -43,30 +43,30 @@ with st.beta_expander("Make your own storybook!"):
 
     # Run setup code
     gan_args = one_time_setup()
-    # clip_model,_ = clip.load('ViT-B/32', device) # sets up CLIP
+    clip_model,_ = clip.load('ViT-B/32', device) # sets up CLIP
 
 
     if len(sentences) != 5:
         st.error("Please enter a valid input")
     else:
-        st.info("Encoding your story...")
-        # tokenized_descriptions = torch.cat([clip.tokenize(s) for s in sentences]).to(device)
-        # with torch.no_grad():
-        #     encoded_descriptions = clip_model.encode_text(tokenized_descriptions).float()
+        st.info("Generating images...")
+        tokenized_descriptions = torch.cat([clip.tokenize(s) for s in sentences]).to(device)
+        with torch.no_grad():
+            encoded_descriptions = clip_model.encode_text(tokenized_descriptions).float()
 
-        # # Run the encoded story text through StoryGAN 
-        # fake_imgs = single_inference(gan_args, encoded_descriptions)
+        # Run the encoded story text through StoryGAN 
+        fake_imgs = single_inference(gan_args, encoded_descriptions)
 
         # Show the credits for each photo in an expandable sidebar
         st.markdown(f"## Your Storybook: \n")
         col_generator = st.beta_columns(video_len)
         for i, col in enumerate(col_generator):
-            # images = fake_imgs.squeeze(0).transpose(0, 1)[i].squeeze(0)
-            # images = images_to_numpy(images)
-            # image = PIL.Image.fromarray(images)
+            images = fake_imgs.squeeze(0).transpose(0, 1)[i].squeeze(0)
+            images = images_to_numpy(images)
+            image = PIL.Image.fromarray(images)
 
             with col:
-                st.image('/home/Priscilla/VIST/Test/images/106158.jpg', use_column_width='always')
+                st.image(image, use_column_width='always')
                 st.text(sentences[i])
 
         # Format

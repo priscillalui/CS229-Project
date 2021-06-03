@@ -426,6 +426,8 @@ def save_test_samples(netG, dataloader, save_path):
             content_input = content_input.cuda()
             catelabel = catelabel.cuda()
 
+        motion_input = motion_input.float()
+        content_input = content_input.float()
         _, fake, _,_,_,_ = netG.sample_videos(motion_input, content_input)
         save_story_results(real_cpu, fake, i, save_path)
         break
